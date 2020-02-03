@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import Footer from './components/footer'
+import Header from './componenets/header'
+import ThingContainer from './componenets/ThingContainer'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Componenet {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      things : [
+        {id:45, name:'rake'},
+        {id:57, name:'gogurt'}
+      ]
+    }
+
+    this.createThingHandler = this.createThingHandler.bind(this);
+  }
+
+  createThingHandler(thing) {
+    thing.id = Math.floor(Math.random() * 1000)
+    this.setState ({
+      things : this.state.things.concat(thing),
+    })
+  }
+
+  render() {
+    return (
+      <>
+      <Header thing-count={0} />
+      <ThingContainer things={this.state.things} onCreated={this.createThingHandler}/>
+      <Footer copyright="1999" />
+      </>
+    )
+  }
 }
-
 export default App;
